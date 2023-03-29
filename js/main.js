@@ -30,6 +30,7 @@ function draw() {
         let newCard = document.createElement("img");
         newCard.src = data.cards[0].image;
         document.querySelector("#playerHand").appendChild(newCard);
+        document.querySelector(".playerScore").innerText = `Score: ${calcVal(playerHand)}`;
         if (bust(playerHand)){ 
           alert(`You Busted`);
           dealerPlay();
@@ -84,6 +85,7 @@ function deal() {
         if (index % 2 === 0) dealerHand.push(card);
         else playerHand.push(card);
       });
+      document.querySelector(".playerScore").innerText = `Score: ${calcVal(playerHand)}`;
       if (
         calcVal(playerHand) === 21 &&
         dealerHand[0].value != "KING" &&
@@ -117,13 +119,14 @@ function clearTable() {
     parent2.removeChild(parent2.lastChild);
   }
   document.querySelector("h3").innerText = "";
+  document.querySelector("h4").innerText = "";
 }
 
 function dealerPlay() {
   stayed = true;
   if (playerHand.length < 2) return alert("The game has yet to start");
-  document.querySelector("#dealer2").src = dealerHand[1].image; //Show the face value of the dealer's 2nd card previously faced down during initial deal.
-  // let busted = bust(dealerHand); //check if the dealer hand is bust
+  //Show the face value of the dealer's 2nd card previously faced down during initial deal.
+  document.querySelector("#dealer2").src = dealerHand[1].image; 
   if (calcVal(dealerHand) < 17) dealerDraw();
   else whoWon();
 }
@@ -131,6 +134,7 @@ function dealerPlay() {
 function whoWon() {
   let playerScore = calcVal(playerHand);
   let dealerScore = calcVal(dealerHand);
+  document.querySelector(".dealerScore").innerText = `Score: ${calcVal(dealerHand)}`;
   if (playerScore === dealerScore) {
     document.querySelector(
       "h3"
@@ -180,6 +184,7 @@ async function dealerDraw() {
       newCard.src = data.cards[0].image;
       document.querySelector("#dealerHand").appendChild(newCard);
       score = calcVal(dealerHand);
+      document.querySelector(".dealerScore").innerText = `Score: ${score}`;
     }
     let winner = whoWon();
   } catch (e) {

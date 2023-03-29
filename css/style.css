@@ -21,6 +21,9 @@ body{
 button{
   display: inline-block;
 }
+.rules{
+  list-style-type: none;
+}
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
